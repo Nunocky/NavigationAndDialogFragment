@@ -18,6 +18,8 @@ Android ナビゲーショングラフに Dialogを追加する
         android:label="YesNoDialogFragment" />
 ```
 
+<img width="381" alt="スクリーンショット 2021-11-13 午後10 12 36" src="https://user-images.githubusercontent.com/750091/141646235-80f46064-5c1c-42e7-8543-444bce78e376.png">
+
 
 ### フラグメントからダイアログを開く
 
@@ -41,12 +43,14 @@ Android ナビゲーショングラフに Dialogを追加する
 
 この返り値を Fragmentと Dialogで共有する。そのために Activityスコープの ViewModelを使う。
 
+ViewModelの定義
 ```
 class DialogResultViewModel : ViewModel() {
     val result = MutableLiveData<YesNoDialogFragment.Result>(YesNoDialogFragment.Result.Init)
 }
 ```
 
+ViewModelを Fragmentと Dialogで共有する。
 ```
     private val resultViewModel: DialogResultViewModel by activityViewModels()
 ```
@@ -70,7 +74,11 @@ Fragmentは viewmodel.resultを observeし、ボタン押下時の挙動を実�
 
 ## 感想
 
-個人的にはこの実装方法は好きではない。 一番の理由は YesNoDialogを使い回すことができないから。 Android Navigationは、 この例のように汎用的に用いられるダイアログが再利用されることを考慮していない。 
+個人的にはこの実装方法は好きではない。
 
+一番の理由は YesNoDialogを使い回すことができないから。 Android Navigationは、 この例のように汎用的に用いられるダイアログが再利用されることを考慮していない。 
 再利用性の観点で言えば従来のコールバックを用いる方法のほうがコードも読みやすい。
 
+結果を viewModelで共有するのも気に入らない。 viewModelを宣言してしまえば他の Fragmentでも結果の変化が見えてしまうというのが気持ち悪い。
+
+なので個人的にはダイアログは従来のコールバックを用いる方法を使い続けると思う
