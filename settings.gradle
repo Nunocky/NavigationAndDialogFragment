@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "NavigationAndDialogFragment"
 include ':app'
+include ':app2'
