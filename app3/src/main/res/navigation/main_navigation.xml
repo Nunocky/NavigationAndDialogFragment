@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/mainFragment">
+
+    <dialog
+        android:id="@+id/yesNoDialogFragment"
+        android:name="org.nunocky.app3.YesNoDialogFragment"
+        android:label="YesNoDialogFragment">
+        <argument
+            android:name="requestKey"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="org.nunocky.app3.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_yesNoDialogFragment"
+            app:destination="@id/yesNoDialogFragment" />
+    </fragment>
+</navigation>
