@@ -5,7 +5,33 @@ Android ナビゲーショングラフに Dialogを追加する。
 
 ![device-2021-11-13-231929](https://user-images.githubusercontent.com/750091/141647339-e3f63a4a-3bb6-4610-a106-04bdf1d6b653.gif)
 
+## app3
 
+この方法が現時点で一番良いと思う
+
+ダイアログ側
+```kotlin
+  setFragmentResult("Button1", bundleOf("result" to RESULT_OK))
+```
+
+呼び出すフラグメント側
+```kotlin
+        parentFragmentManager.setFragmentResultListener(
+            "Button1",
+            viewLifecycleOwner
+        ) { requestKey: String, result: Bundle ->
+            val retVal = result.getInt("result")
+            Toast.makeText(requireActivity(), "Button1 - $retVal", Toast.LENGTH_SHORT).show()
+        }
+```
+
+フラグメント側とダイアログ側で第一引数の requestKeyを一致させる必要がある。
+
+## app2
+
+この方法は推奨されない。匿名オブジェクトが再生成されないため。
+
+※ ただまだ確実にクラッシュさせる方法を見つけられていない..
 
 ## appの解説
 ### ナビゲーショングラフ
@@ -89,8 +115,3 @@ __個人的にはこの実装方法は好きではない。むしろ推奨しな
 
 なので個人的にはダイアログは従来のコールバックを用いる方法を使い続けると思う
 
-## app2の解説
-
-個人的にはこの方法を使いたい
-
-TODO : 解説を書く
