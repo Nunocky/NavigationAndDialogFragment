@@ -20,31 +20,38 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.button.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToYesNoDialogFragment("Button1")
+            val action =
+                MainFragmentDirections.actionMainFragmentToYesNoDialogFragment(REQUEST_KEY1)
             findNavController().navigate(action)
         }
 
         binding.button2.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToYesNoDialogFragment("Button2")
+            val action =
+                MainFragmentDirections.actionMainFragmentToYesNoDialogFragment(REQUEST_KEY2)
             findNavController().navigate(action)
         }
 
         parentFragmentManager.setFragmentResultListener(
-            "Button1",
+            REQUEST_KEY1,
             viewLifecycleOwner
-        ) { requestKey: String, result: Bundle ->
-            val retVal = result.getInt("result")
+        ) { _: String, result: Bundle ->
+            val retVal = result.getInt(YesNoDialogFragment.RET_CODE_KEY)
             Toast.makeText(requireActivity(), "Button1 - $retVal", Toast.LENGTH_SHORT).show()
         }
 
         parentFragmentManager.setFragmentResultListener(
-            "Button2",
+            REQUEST_KEY2,
             viewLifecycleOwner
-        ) { requestKey: String, result: Bundle ->
-            val retVal = result.getInt("result")
+        ) { _: String, result: Bundle ->
+            val retVal = result.getInt(YesNoDialogFragment.RET_CODE_KEY)
             Toast.makeText(requireActivity(), "Button2 - $retVal", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
+    }
+
+    companion object {
+        const val REQUEST_KEY1 = "Button1"
+        const val REQUEST_KEY2 = "Button2"
     }
 }

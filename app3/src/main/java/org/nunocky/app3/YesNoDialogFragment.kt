@@ -11,7 +11,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.navArgs
 
 class YesNoDialogFragment : DialogFragment() {
-    private val args : YesNoDialogFragmentArgs by navArgs()
+    private val args: YesNoDialogFragmentArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -19,14 +19,18 @@ class YesNoDialogFragment : DialogFragment() {
             .setTitle(args.requestKey)
             .setMessage("Message")
             .setPositiveButton("Yes") { dialog, _ ->
-                setFragmentResult(args.requestKey, bundleOf("result" to RESULT_OK))
+                setFragmentResult(args.requestKey, bundleOf(RET_CODE_KEY to RESULT_OK))
                 dialog.dismiss()
             }
             .setNegativeButton("No") { dialog, _ ->
-                setFragmentResult(args.requestKey, bundleOf("result" to RESULT_CANCELED))
+                setFragmentResult(args.requestKey, bundleOf(RET_CODE_KEY to RESULT_CANCELED))
                 dialog.dismiss()
             }
 
         return builder.create()
+    }
+
+    companion object {
+        const val RET_CODE_KEY = "result"
     }
 }
